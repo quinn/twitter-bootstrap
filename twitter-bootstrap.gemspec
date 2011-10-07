@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = TwitterBootstrap::VERSION
   s.authors     = ['Quinn Shanahan']
   s.email       = ['q.shanahan@gmail.com']
-  s.homepage    = 'TODO'
-  s.summary     = 'TODO: Summary of TwitterBootstrap.'
-  s.description = 'TODO: Description of TwitterBootstrap.'
+  s.homepage    = 'https://github.com/quinn/twitter-bootstrap'
+  s.summary     = 'Twitter bootstrap framework as rails plugin'
+  s.description = 'Twitter bootstrap framework as rails plugin, pulls in javascript and less. no fancy helpers yet.'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
   s.test_files = Dir['test/**/*']

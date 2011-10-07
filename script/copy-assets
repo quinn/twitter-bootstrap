@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+require 'fileutils'
+
+module CopyAssets
+  def root
+    Pathname.new File.expand_path('../..', __FILE__)
+  end
+
+  def javascripts
+    Dir.glob(root.join('vendor/bootstrap/js/*.js'))
+  end
+
+  def stylesheets
+    Dir.glob(root.join('vendor/bootstrap/lib/*.less'))
+  end
+
+  def copy_javascripts
+    javascripts.each do |file|
+      name = File.basename(file)
+      FileUtils.cp file, root.join("app/assets/javascripts/#{name}")
+    end
+  end
+
+  def copy_stylesheets
+    stylesheets.each do |file|
+      stylesheet = Stylesheet.new(file)
+      path = root.join("app/assets/stylesheets/#{stylesheet.name}")
+      FileUtils.cp file, path
+    end
+  end
+
+  def run
+    copy_javascripts
+    copy_stylesheets
+  end
+
+  class Stylesheet
+    def initialize(file)
+      @file = file
+    end
+
+    def name
+      @name = File.basename(@file).sub(/\.less$/, '')
+      @name = case @name
+      when /bootstrap/ then 'bootsrap-defaults'
+      else "bootsrap-#{@name}" end
+      @name += '.css.less'
+    end
+  end
+
+  extend self
+end
+
+CopyAssets.run
